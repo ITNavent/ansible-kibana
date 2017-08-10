@@ -1,12 +1,9 @@
 ---
-- include: setup-RedHat.yml
-  when: ansible_os_family == 'RedHat'
+#- name: Debug
+#  debug:
+#    msg: "{{ groups['elasticsearch-prd'] | map('extract', hostvars, 'ansible_ssh_host') | list | first }}"
 
-- include: setup-Debian.yml
-  when: ansible_os_family == 'Debian'
-
-- name: Install Kibana.
-  package: name=kibana state=present
+- include: setup.yml
 
 - name: Ensure Kibana is started and enabled at boot.
   service:
@@ -17,7 +14,7 @@
 - name: Copy Kibana configuration.
   template:
     src: kibana.yml.j2
-    dest: "/opt/kibana/config/kibana.yml"
+    dest: "/etc/kibana/kibana.yml"
     owner: root
     group: root
     mode: 0644

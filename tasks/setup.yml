@@ -1,0 +1,23 @@
+---
+- name: Ensure dependency is installed
+  apt:
+    name: apt-transport-https
+    state: present
+
+- name: Download Kibana package
+  get_url:
+    url: "https://artifacts.elastic.co/downloads/kibana/kibana-{{ kibana_version }}-amd64.deb"
+    dest: "/tmp/"
+
+- name: Install Kibana package
+  apt:
+    deb: "/tmp/kibana-{{ kibana_version }}-amd64.deb"
+    state: present
+
+- name: Create log folder
+  file:
+    path: "{{ kibana_logging_dest | dirname }}"
+    state: directory
+    mode: 0777
+  when:
+    kibana_logging_dest is defined
