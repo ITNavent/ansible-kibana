@@ -1,0 +1,21 @@
+---
+#- name: Debug
+#  debug:
+#    msg: "{{ groups['elasticsearch-prd'] | map('extract', hostvars, 'ansible_ssh_host') | list | first }}"
+
+- include: setup.yml
+
+- name: Ensure Kibana is started and enabled at boot.
+  service:
+    name: kibana
+    state: started
+    enabled: yes
+
+- name: Copy Kibana configuration.
+  template:
+    src: kibana.yml.j2
+    dest: "/etc/kibana/kibana.yml"
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart kibana

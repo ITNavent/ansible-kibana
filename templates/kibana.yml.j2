@@ -1,0 +1,178 @@
+# Kibana is served by a back end server. This controls which port to use.
+server.port: {{ kibana_server_port }}
+
+# The host to bind the server to.
+server.host: {{ kibana_server_host }}
+
+# If you are running kibana behind a proxy, and want to mount it at a path,
+# specify that path here. The basePath can't end in a slash.
+{% if kibana_server_basePath is defined %}
+server.basePath: "{{ kibana_server_basePath }}"
+{% else %}
+# server.basePath: ""
+{% endif %}
+
+# The maximum payload size in bytes on incoming server requests.
+{% if kibana_server_max_PayloadBytes is defined %}
+server.maxPayloadBytes: {{ kibana_server_max_PayloadBytes }}
+{% else %}
+# server.maxPayloadBytes: 1048576
+{% endif %}
+
+# The Elasticsearch instance to use for all your queries.
+elasticsearch.url: {{ kibana_elasticsearch_url }}
+
+# preserve_elasticsearch_host true will send the hostname specified in `elasticsearch`. If you set it to false,
+# then the host you use to connect to *this* Kibana instance will be sent.
+{% if kibana_elasticsearch_preserveHost is defined %}
+elasticsearch.preserveHost: {{ kibana_elasticsearch_preserveHost }}
+{% else %}
+# elasticsearch.preserveHost: true
+{% endif %}
+
+# Kibana uses an index in Elasticsearch to store saved searches, visualizations
+# and dashboards. It will create a new index if it doesn't already exist.
+{% if kibana_kibana_index is defined %}
+kibana.index: "{{ kibana_kibana_index }}"
+{% else %}
+# kibana.index: ".kibana"
+{% endif %}
+
+# The default application to load.
+{% if kibana_kibana_defaultAppId is defined %}
+kibana.defaultAppId: "{{ kibana_kibana_defaultAppId }}"
+{% else %}
+# kibana.defaultAppId: "discover"
+{% endif %}
+
+# If your Elasticsearch is protected with basic auth, these are the user credentials
+# used by the Kibana server to perform maintenance on the kibana_index at startup. Your Kibana
+# users will still need to authenticate with Elasticsearch (which is proxied through
+# the Kibana server)
+{% if kibana_elasticsearch_username is defined %}
+elasticsearch.username: "{{ kibana_elasticsearch_username }}"
+{% else %}
+# elasticsearch.username: "user"
+{% endif %}
+
+{% if kibana_elasticsearch_password is defined %}
+elasticsearch.password: "{{ kibana_elasticsearch_password }}"
+{% else %}
+# elasticsearch.password: "pass"
+{% endif %}
+
+# SSL for outgoing requests from the Kibana Server to the browser (PEM formatted)
+{% if kibana_server_ssl_cert is defined %}
+server.ssl.cert: "{{ kibana_server_ssl_cert }}"
+{% else %}
+# server.ssl.cert: /path/to/your/server.crt
+{% endif %}
+
+{% if kibana_server_ssl_key is defined %}
+server.ssl.key: "{{ kibana_server_ssl_key }}"
+{% else %}
+# server.ssl.key: /path/to/your/server.key
+{% endif %}
+
+# Optional setting to validate that your Elasticsearch backend uses the same key files (PEM formatted)
+{% if kibana_elasticsearch_ssl_cert is defined %}
+elasticsearch.ssl.cert: "{{ kibana_elasticsearch_ssl_cert }}"
+{% else %}
+# elasticsearch.ssl.cert: /path/to/your/client.crt
+{% endif %}
+
+{% if kibana_elasticsearch_ssl_key is defined %}
+elasticsearch.ssl.key: "{{ kibana_elasticsearch_ssl_key }}"
+{% else %}
+# elasticsearch.ssl.key: /path/to/your/client.key
+{% endif %}
+
+# If you need to provide a CA certificate for your Elasticsearch instance, put
+# the path of the pem file here.
+{% if kibana_elasticsearch_ssl_ca is defined %}
+elasticsearch.ssl.ca: "{{ kibana_elasticsearch_ssl_ca }}"
+{% else %}
+# elasticsearch.ssl.ca: /path/to/your/CA.pem
+{% endif %}
+
+# Set to false to have a complete disregard for the validity of the SSL
+# certificate.
+{% if kibana_elasticsearch_ssl_verify is defined %}
+elasticsearch.ssl.verify: "{{ kibana_elasticsearch_ssl_verify }}"
+{% else %}
+# elasticsearch.ssl.verify: true
+{% endif %}
+
+# Time in milliseconds to wait for elasticsearch to respond to pings, defaults to
+# request_timeout setting
+{% if kibana_elasticsearch_pingTimeout is defined %}
+elasticsearch.pingTimeout: "{{ kibana_elasticsearch_pingTimeout }}"
+{% else %}
+# elasticsearch.pingTimeout: 1500
+{% endif %}
+
+# Time in milliseconds to wait for responses from the back end or elasticsearch.
+# This must be > 0
+{% if kibana_elasticsearch_requestTimeout is defined %}
+elasticsearch.requestTimeout: "{{ kibana_elasticsearch_requestTimeout }}"
+{% else %}
+# elasticsearch.requestTimeout: 30000
+{% endif %}
+
+# Header names and values that are sent to Elasticsearch. Any custom headers cannot be overwritten
+# by client-side headers.
+{% if kibana_elasticsearch_customHeaders is defined %}
+elasticsearch.customHeaders: {{ kibana_elasticsearch_customHeaders }}
+{% else %}
+# elasticsearch.customHeaders: {}
+{% endif %}
+
+# Time in milliseconds for Elasticsearch to wait for responses from shards.
+# Set to 0 to disable.
+{% if kibana_elasticsearch_shardTimeout is defined %}
+elasticsearch.shardTimeout: {{ kibana_elasticsearch_shardTimeout }}
+{% else %}
+# elasticsearch.shardTimeout: 0
+{% endif %}
+
+# Time in milliseconds to wait for Elasticsearch at Kibana startup before retrying
+{% if kibana_elasticsearch_startupTimeout is defined %}
+elasticsearch.startupTimeout: {{ kibana_elasticsearch_startupTimeout }}
+{% else %}
+# elasticsearch.startupTimeout: 5000
+{% endif %}
+
+# Set the path to where you would like the process id file to be created.
+{% if kibana_pid_file is defined %}
+pid.file: {{ kibana_pid_file }}
+{% else %}
+# pid.file: /var/run/kibana.pid
+{% endif %}
+
+# If you would like to send the log output to a file you can set the path below.
+{% if kibana_logging_dest is defined %}
+logging.dest: {{ kibana_logging_dest }}
+{% else %}
+# logging.dest: stdout
+{% endif %}
+
+# Set this to true to suppress all logging output.
+{% if kibana_logging_silent is defined %}
+logging.silent: {{ kibana_logging_silent }}
+{% else %}
+# logging.silent: false
+{% endif %}
+
+# Set this to true to suppress all logging output except for error messages.
+{% if kibana_logging_quiet is defined %}
+logging.quiet: {{ kibana_logging_quiet }}
+{% else %}
+# logging.quiet: false
+{% endif %}
+
+# Set this to true to log all events, including system usage information and all requests.
+{% if kibana_logging_verbose is defined %}
+logging.verbose: {{ kibana_logging_verbose }}
+{% else %}
+# logging.verbose: false
+{% endif %}
