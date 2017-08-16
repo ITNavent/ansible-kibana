@@ -1,7 +1,4 @@
 ---
-#- name: Debug
-#  debug:
-#    msg: "{{ groups['elasticsearch-prd'] | map('extract', hostvars, 'ansible_ssh_host') | list | first }}"
 
 - include: setup.yml
 
@@ -19,3 +16,5 @@
     group: root
     mode: 0644
   notify: restart kibana
+
+- include: xpack.yml

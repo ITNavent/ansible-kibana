@@ -176,3 +176,17 @@ logging.verbose: {{ kibana_logging_verbose }}
 {% else %}
 # logging.verbose: false
 {% endif %}
+
+{% if kibana_install_xpack and '"monitoring" in kibana_xpack_features' %}
+xpack.monitoring.enabled: {{ xpack_monitoring_enabled | lower }}
+{% if xpack_monitoring_elasticsearch_url is defined %}
+xpack.monitoring.elasticsearch.url: "{{ xpack_monitoring_elasticsearch_url }}"
+{% endif %}
+xpack.monitoring.kibana.collection.enabled: {{ xpack_monitoring_kibana_collection_enabled | lower }}
+xpack.monitoring.kibana.collection.interval: {{ xpack_monitoring_kibana_collection_interval }}
+xpack.monitoring.max_bucket_size: {{ xpack_monitoring_max_bucket_size }}
+xpack.monitoring.min_interval_seconds: {{ xpack_monitoring_min_interval_seconds }}
+xpack.monitoring.node_resolver: {{ xpack_monitoring_node_resolver }}
+xpack.monitoring.report_stats: {{ xpack_monitoring_report_stats | lower }}
+xpack.monitoring.ui.enabled: {{ xpack_monitoring_ui_enabled | lower }}
+{% endif %}

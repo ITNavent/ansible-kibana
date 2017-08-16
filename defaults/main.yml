@@ -5,3 +5,15 @@ kibana_server_port: 5601
 kibana_server_host: "0.0.0.0"
 
 kibana_elasticsearch_url: "http://localhost:9200"
+
+kibana_install_xpack: false
+elasticsearch_xpack_features: []
+
+xpack_monitoring_enabled: false
+xpack_monitoring_kibana_collection_enabled: true
+xpack_monitoring_kibana_collection_interval: 10000
+xpack_monitoring_max_bucket_size: 10000
+xpack_monitoring_min_interval_seconds: 10
+xpack_monitoring_node_resolver: uuid
+xpack_monitoring_report_stats: true
+xpack_monitoring_ui_enabled: true
