@@ -19,8 +19,16 @@ server.maxPayloadBytes: {{ kibana_server_max_PayloadBytes }}
 # server.maxPayloadBytes: 1048576
 {% endif %}
 
+{% if kibana_elasticsearch_url is defined %}
+elasticsearch.url: {{ kibana_elasticsearch_url }}
+{% endif %}
+
+{% if kibana_elasticsearch_hosts is defined %}
+elasticsearch.hosts: {{ kibana_elasticsearch_hosts }}
+{% endif %}
+
 # The Elasticsearch instance to use for all your queries.
-elasticsearch.hosts: {{ kibana_elasticsearch_url }}
+#elasticsearch.hosts: {{ kibana_elasticsearch_url }}
 
 # preserve_elasticsearch_host true will send the hostname specified in `elasticsearch`. If you set it to false,
 # then the host you use to connect to *this* Kibana instance will be sent.
